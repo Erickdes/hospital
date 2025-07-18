@@ -26,7 +26,7 @@ if (!isset($_SESSION['usuario'])) {
     <nav>
         <ul>
             <li><a href="./tabla_cirugias.php">Ver Cirugías</a></li>
-            <?php if ($_SESSION['rol'] === 'admin') : ?>
+            <?php if ($_SESSION['rol'] === 'jefe_unidad') : ?>
                 <li><a href="./agregar_cirugia.php">Agregar Cirugía</a></li>
             <?php endif; ?>
             <li><a href="../../backend/controllers/logout.php">Cerrar Sesión</a></li>
