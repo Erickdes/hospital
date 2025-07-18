@@ -1,87 +1,71 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const formModificar = document.getElementById("formModificarCirugia");
-    const fechaInput = document.getElementById("fecha");
-    const mensajeFecha = document.getElementById("mensajeFecha");
+    const urlParams = new URLSearchParams(window.location.search);
+    const idCirugia = urlParams.get("id"); // Obtiene el ID de la URL
 
-    // Evita error si los elementos no existen
-    if (fechaInput && mensajeFecha) {
-        fechaInput.addEventListener("click", function () {
-            mensajeFecha.style.display = "block";
-        });
+    // Verificar si no hay ID en la URL
+    if (!idCirugia) {
+        alert("Error: No se proporcionó un ID de cirugía.");
+        return;
     }
 
-    // Evento para enviar el formulario de modificación
-    if (formModificar) {
-        formModificar.addEventListener("submit", function (event) {
-            event.preventDefault();
-            modificarCirugia();
-        });
+    // Verificar que el formulario existe antes de añadir el event listener
+    const form = document.getElementById('modificarCirugia');
+    if (!form) {
+        console.error("No se encontró el formulario 'modificarCirugia'.");
+        alert("Error: No se encontró el formulario de modificación.");
+        return;
     }
-});
 
-// Función para modificar una cirugía
-function modificarCirugia() {
-    const form = document.getElementById("formModificarCirugia");
-    const formData = new FormData(form);
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    fetch("../../backend/controllers/modificar_cirugia.php", {
-        method: "POST",
-        body: formData,
-    })
-        .then((response) => response.json())
-        .then((data) => {
+        let cirugia = document.getElementById('cirugia').value;
+        let medico = document.getElementById('medico').value;
+        let sala = document.getElementById('sala').value;
+        let fecha = document.getElementById('fecha').value;
+
+        // Verificar que todos los campos sean completados
+        if (!cirugia || !medico || !sala || !fecha) {
+            alert("Todos los campos son obligatorios.");
+            return;
+        }
+
+        // Crear el objeto FormData con los datos del formulario
+        let formData = new FormData();
+        formData.append("id", idCirugia);
+        formData.append("nombre_cirugia", cirugia);
+        formData.append("id_medico", medico);
+        formData.append("id_sala", sala);
+        formData.append("fecha", fecha);
+
+        console.log("Enviando datos...");
+        console.log([...formData.entries()]); // Verifica qué datos se están enviando
+
+        // Enviar la solicitud con método POST a través de fetch
+        fetch('../../backend/controllers/modificar_cirugia.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            // Verificar si la respuesta es correcta
+            if (!response.ok) {
+                throw new Error("Error en la respuesta del servidor");
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Verificar si el servidor devolvió éxito
             if (data.success) {
-                alert("Cirugía modificada correctamente");
-                cerrarModal();
-                cargarCirugias(); // Refrescar la tabla
+                alert("Cirugía modificada correctamente.");
+                window.location.href = '../../frontend/views/tabla_cirugias.php';
             } else {
-                alert("Error: " + data.error);
+                alert("Hubo un error: " + data.error);
             }
         })
-        .catch((error) => console.error("Error en la solicitud:", error));
-}
-
-// Función para abrir el modal y cargar datos de la cirugía
-function abrirModal(id) {
-    document.getElementById("modalModificarCirugia").style.display = "block";
-    document.querySelector(".modal-overlay").style.display = "block";
-    document.getElementById("idCirugia").value = id;
-    cargarDatosCirugia(id);
-}
-
-function cerrarModal() {
-    document.getElementById("modalModificarCirugia").style.display = "none";
-    document.querySelector(".modal-overlay").style.display = "none";
-}
-
-
-// Cargar datos de una cirugía en el modal
-function cargarDatosCirugia(id) {
-    fetch(`../../backend/controllers/get_cirugia.php?id=${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-            document.getElementById("cirugia").value = data.nombre_cirugia;
-            document.getElementById("fecha").value = data.fecha;
-            cargarOpciones("medico", "../../backend/controllers/get_medicos.php", data.id_medico);
-            cargarOpciones("sala", "../../backend/controllers/get_salas.php", data.id_sala);
+        .catch(error => {
+            // Manejar cualquier error en la solicitud o respuesta
+            console.error("Error en la solicitud:", error);
+            alert("Hubo un error al procesar la solicitud. Por favor, intenta de nuevo.");
         });
-}
-
-// Cargar opciones en los select (médicos y salas)
-function cargarOpciones(elementId, url, selectedValue) {
-    fetch(url)
-        .then((response) => response.json())
-        .then((options) => {
-            const select = document.getElementById(elementId);
-            select.innerHTML = ""; // Limpiar opciones previas
-            options.forEach((option) => {
-                const opt = document.createElement("option");
-                opt.value = option.id;
-                opt.textContent = option.nombre;
-                if (option.id == selectedValue) {
-                    opt.selected = true;
-                }
-                select.appendChild(opt);
-            });
-        });
-}
+    });
+});

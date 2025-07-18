@@ -5,12 +5,15 @@ document.addEventListener("DOMContentLoaded", function () {
 function fetchCirugias() {
     fetch('../../backend/controllers/get_medicossalas.php')
         .then(response => {
+            // Verificamos si la respuesta fue exitosa
             if (!response.ok) {
                 throw new Error('Error en la respuesta del servidor');
             }
+            // Intentamos convertir la respuesta en JSON
             return response.json();
         })
         .then(data => {
+            // Verificamos si la respuesta contiene un error
             if (data && data.error) {
                 console.error('Error en los datos:', data.error);
                 document.getElementById('noCirugias').style.display = 'block';
@@ -18,12 +21,12 @@ function fetchCirugias() {
             }
 
             const tabla = document.getElementById("tablaCirugias");
-            tabla.innerHTML = ""; // Limpia la tabla antes de llenarla
+            tabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
 
             if (data.length === 0) {
-                document.getElementById('noCirugias').style.display = 'block'; // Muestra mensaje si no hay cirugías
+                document.getElementById('noCirugias').style.display = 'block'; // Mostrar mensaje si no hay cirugías
             } else {
-                document.getElementById('noCirugias').style.display = 'none'; // Oculta mensaje si hay cirugías
+                document.getElementById('noCirugias').style.display = 'none'; // Ocultar mensaje si hay cirugías
                 data.forEach(cirugia => {
                     const tr = document.createElement('tr');
                     
@@ -45,6 +48,7 @@ function fetchCirugias() {
             }
         })
         .catch(error => {
+            // En caso de error, mostramos un mensaje en consola y mostramos el mensaje de error
             console.error("Error al obtener cirugías:", error);
             document.getElementById('noCirugias').style.display = 'block'; // Muestra el mensaje de error si ocurre un problema
         });
@@ -52,7 +56,7 @@ function fetchCirugias() {
 
 // Función para editar cirugía
 function editarCirugia(id) {
-    window.location.href = `../../frontend/views/modificar_cirugia.php?id=${id}`;
+    window.location.href = `../../frontend/views/modificar_cirugia.php?id=${id}`; // Cambiar a la ruta correcta
 }
 
 // Función para cancelar cirugía
