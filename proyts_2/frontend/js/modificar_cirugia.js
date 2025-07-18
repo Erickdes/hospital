@@ -23,9 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
         let medico = document.getElementById('medico').value;
         let sala = document.getElementById('sala').value;
         let fecha = document.getElementById('fecha').value;
+        let jefePiso = document.getElementById('jefePiso').value;
 
         // Verificar que todos los campos sean completados
-        if (!cirugia || !medico || !sala || !fecha) {
+        if (!cirugia || !medico || !sala || !fecha || !jefePiso) {
             alert("Todos los campos son obligatorios.");
             return;
         }
@@ -37,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("id_medico", medico);
         formData.append("id_sala", sala);
         formData.append("fecha", fecha);
+        formData.append("id_jefePiso", jefePiso);
 
         console.log("Enviando datos...");
         console.log([...formData.entries()]); // Verifica qué datos se están enviando

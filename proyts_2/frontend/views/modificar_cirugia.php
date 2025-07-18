@@ -7,6 +7,12 @@ $stmt = $pdo->query("SELECT id, nombre FROM usuarios WHERE puesto = 'cirujano'")
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $medicos[] = $row;
 }
+// Obtener lista de médicos
+$jefesPiso = [];
+$stmt = $pdo->query("SELECT id, nombre FROM usuarios WHERE puesto = 'jefe_piso'"); // Solo los médicos
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $jefesPiso[] = $row;
+}
 
 // Obtener lista de salas
 $salas = [];
@@ -21,7 +27,7 @@ $cirugia = null;
 
 if ($idCirugia) {
     // Obtener los datos de la cirugía seleccionada
-    $stmt = $pdo->prepare("SELECT nombre_cirugia, id_medico, id_sala, fecha FROM cirugias WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT nombre_cirugia, id_medico, id_sala, fecha, id_jefePiso FROM cirugias WHERE id = ?");
     $stmt->execute([$idCirugia]);
     $cirugia = $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -68,6 +74,15 @@ if (!$cirugia) {
     <label for="fecha">Fecha de la Cirugía:</label>
     <input type="text" id="fecha" name="fecha" value="<?= htmlspecialchars($cirugia['fecha']) ?>" readonly>
     <p style="color: red; font-size: 12px;">Campo no editable</p>
+
+    <label for="jefePiso">Jefe:</label>
+    <select id="jefePiso" name="jefePiso" required>
+        <?php foreach ($jefesPiso as $jefePiso): ?>
+            <option value="<?= $jefePiso['id'] ?>" <?= ($jefePiso['id'] == $cirugia['id_jefePiso']) ? 'selected' : '' ?>>
+                <?= htmlspecialchars($jefePiso['nombre']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
 
     <button type="submit">Guardar Cambios</button>
 </form>

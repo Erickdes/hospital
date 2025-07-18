@@ -4,9 +4,6 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: login.html");
     exit();
 }
-
-// include '../../backend/middleware/verificar_rol.php'; 
-// verificarRol(['admin', 'medico']);  // Verifica que el usuario tenga el rol adecuado
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +22,7 @@ if (!isset($_SESSION['usuario'])) {
 
     <nav>
         <ul>
-            <li><a href="./tabla_cirugias.php">Ver Cirugías</a></li>
+            <li><a href="tabla_cirugias.php">Ver Cirugías</a></li>
             <?php if ($_SESSION['rol'] === 'jefe_unidad') : ?>
                 <li><a href="./agregar_cirugia.php">Agregar Cirugía</a></li>
             <?php endif; ?>

@@ -26,15 +26,20 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(responseText => {
         console.log('Respuesta del servidor:', responseText);  // Imprime la respuesta cruda
 
-        // Intenta parsear el JSON solo si es válido
         try {
             const data = JSON.parse(responseText);  // Intentamos parsear la respuesta
+
             if (data.success) {
-                window.location.href = data.redirect;
+                window.location.href = data.redirect;  // Redirige si el login fue exitoso
             } else {
+                // Muestra el error si no es exitoso
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('loginForm').style.display = 'block';
                 document.getElementById('error-message').style.display = 'block';  // Muestra el mensaje de error
+                // Puedes mostrar el mensaje específico si lo recibes desde el servidor
+                if (data.error) {
+                    document.getElementById('error-message').textContent = data.error;
+                }
             }
         } catch (e) {
             console.error('Error al parsear JSON:', e);

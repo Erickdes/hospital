@@ -7,6 +7,12 @@ $stmt = $pdo->query("SELECT id, nombre FROM usuarios WHERE puesto = 'cirujano'")
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $medicos[] = $row;
 }
+// Obtener lista de médicos
+$jefesPiso = [];
+$stmt = $pdo->query("SELECT id, nombre FROM usuarios WHERE puesto = 'jefe_piso'");
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $jefesPiso[] = $row;
+}
 
 // Obtener lista de salas
 $salas = [];
@@ -47,6 +53,13 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
     <label for="fecha">Fecha de la Cirugía:</label>
     <input type="date" id="fecha" name="fecha" required>
+
+    <label for="jefePiso">Jefe:</label>
+    <select id="jefePiso" name="jefePiso" required>
+        <?php foreach ($jefesPiso as $jefePiso): ?>
+            <option value="<?= $jefePiso['id'] ?>"><?= htmlspecialchars($jefePiso['nombre']) ?></option>
+        <?php endforeach; ?>
+    </select>
 
     <button type="submit">Agregar Cirugía</button>
 </form>

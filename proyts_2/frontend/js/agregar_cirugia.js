@@ -12,8 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
         let idMedico = document.getElementById('medico').value;
         let idSala = document.getElementById('sala').value;
         let fecha = document.getElementById('fecha').value;
+        let idJefePiso = document.getElementById('jefePiso').value;
 
-        if (!nombreCirugia || !idMedico || !idSala || !fecha) {
+        if (!nombreCirugia || !idMedico || !idSala || !fecha || !idJefePiso) {
             alert("Todos los campos son obligatorios.");
             return;
         }
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("id_medico", idMedico);
         formData.append("id_sala", idSala);
         formData.append("fecha", fecha);
+        formData.append("id_jefePiso", idJefePiso);
 
         // Enviar la solicitud con método POST a través de fetch
         fetch('../../backend/controllers/agregar_cirugia.php', {

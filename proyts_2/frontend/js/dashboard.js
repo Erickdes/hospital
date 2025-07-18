@@ -1,85 +1,101 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetchCirugias();
+    // Solo ejecuta fetchCirugias() si estamos en tabla_cirugias.php
+    if (document.getElementById("tablaCirugias")) {
+        fetchCirugias();
+    }
 });
 
 function fetchCirugias() {
     fetch('../../backend/controllers/get_medicossalas.php')
         .then(response => {
-            // Verificamos si la respuesta fue exitosa
             if (!response.ok) {
                 throw new Error('Error en la respuesta del servidor');
             }
-            // Intentamos convertir la respuesta en JSON
             return response.json();
         })
         .then(data => {
-            // Verificamos si la respuesta contiene un error
-            if (data && data.error) {
-                console.error('Error en los datos:', data.error);
-                document.getElementById('noCirugias').style.display = 'block';
+            const tabla = document.getElementById("tablaCirugias");
+            const mensajeNoCirugias = document.getElementById('noCirugias');
+
+            if (!tabla || !mensajeNoCirugias) {
+                console.error("Error: No se encontraron los elementos en el DOM.");
                 return;
             }
 
-            const tabla = document.getElementById("tablaCirugias");
             tabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
 
             if (data.length === 0) {
-                document.getElementById('noCirugias').style.display = 'block'; // Mostrar mensaje si no hay cirugías
+                mensajeNoCirugias.style.display = 'block';
             } else {
-                document.getElementById('noCirugias').style.display = 'none'; // Ocultar mensaje si hay cirugías
+                mensajeNoCirugias.style.display = 'none';
                 data.forEach(cirugia => {
                     const tr = document.createElement('tr');
-                    
-                    // Si la fecha es "0001-01-01", mostrar "CANCELADA"
+
                     let fechaCirugia = (cirugia.fecha === "0001-01-01") ? "CANCELADA" : cirugia.fecha;
+
+                    let accionesHTML = '';
+                    if (typeof puestoUsuario !== 'undefined' && (puestoUsuario === 'jefe_unidad' || puestoUsuario === 'jefe_piso')) {
+                        accionesHTML = `
+                            <td>
+                                <button onclick="editarCirugia(${cirugia.id})">Editar</button>
+                                <button onclick="eliminarCirugia(${cirugia.id})">Cancelar</button>
+                            </td>
+                        `;
+                    }
 
                     tr.innerHTML = `
                         <td>${cirugia.nombre_cirugia}</td>
                         <td>${cirugia.medico}</td>
                         <td>${cirugia.sala}</td>
                         <td>${fechaCirugia}</td>
-                        <td>
-                            <button onclick="editarCirugia(${cirugia.id})">Editar</button>
-                            <button onclick="eliminarCirugia(${cirugia.id})">Cancelar</button>
-                        </td>
+                        <td>${cirugia.jefe}</td>
+                        ${accionesHTML}
                     `;
                     tabla.appendChild(tr);
                 });
             }
         })
         .catch(error => {
-            // En caso de error, mostramos un mensaje en consola y mostramos el mensaje de error
             console.error("Error al obtener cirugías:", error);
-            document.getElementById('noCirugias').style.display = 'block'; // Muestra el mensaje de error si ocurre un problema
+            const mensajeNoCirugias = document.getElementById('noCirugias');
+            if (mensajeNoCirugias) {
+                mensajeNoCirugias.style.display = 'block';
+            }
         });
 }
 
-// Función para editar cirugía
+// Función para redirigir a la página de modificación de cirugía
 function editarCirugia(id) {
-    window.location.href = `../../frontend/views/modificar_cirugia.php?id=${id}`; // Cambiar a la ruta correcta
+    window.location.href = `modificar_cirugia.php?id=${id}`;
 }
 
-// Función para cancelar cirugía
-function eliminarCirugia(id) {
-    if (confirm('¿Seguro que quieres cancelar esta cirugía?')) {
+// Función para eliminar una cirugía
+function eliminarCirugia(idCirugia) {
+    if (confirm("¿Estás seguro de que quieres cancelar esta cirugía?")) {
         fetch('../../backend/controllers/cancelar_cirugia.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id: id })
+            body: JSON.stringify({ id: idCirugia })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
-                alert('Cirugía cancelada.');
+                alert("Cirugía cancelada correctamente.");
                 fetchCirugias(); // Recargar la lista de cirugías
             } else {
-                alert('Error al cancelar la cirugía.');
+                alert("Error al cancelar la cirugía: " + data.error);
             }
         })
         .catch(error => {
-            console.error('Error al cancelar cirugía:', error);
+            console.error("Error al cancelar la cirugía:", error);
+            alert("Hubo un error al procesar la solicitud.");
         });
     }
 }

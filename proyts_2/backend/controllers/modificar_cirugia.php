@@ -13,16 +13,18 @@ $nombreCirugia = $_POST['nombre_cirugia'] ?? null;
 $idMedico = $_POST['id_medico'] ?? null;
 $idSala = $_POST['id_sala'] ?? null;
 $fecha = $_POST['fecha'] ?? null;
+$idJefePiso = $_POST['id_jefePiso'] ?? null;
+
 
 // Validar que todos los datos sean correctos
-if (!$idCirugia || !$nombreCirugia || !$idMedico || !$idSala || !$fecha) {
+if (!$idCirugia || !$nombreCirugia || !$idMedico || !$idSala || !$fecha || !$idJefePiso) {
     echo json_encode(['success' => false, 'error' => 'Faltan datos en la solicitud']);
     exit();
 }
 
 // Actualizar la cirugía en la base de datos
-$stmt = $pdo->prepare("UPDATE cirugias SET nombre_cirugia = ?, id_medico = ?, id_sala = ?, fecha = ? WHERE id = ?");
-$stmt->execute([$nombreCirugia, $idMedico, $idSala, $fecha, $idCirugia]);
+$stmt = $pdo->prepare("UPDATE cirugias SET nombre_cirugia = ?, id_medico = ?, id_sala = ?, fecha = ?, id_jefePiso = ? WHERE id = ?");
+$stmt->execute([$nombreCirugia, $idMedico, $idSala, $fecha, $idJefePiso, $idCirugia]);
 
 // Responder con éxito
 echo json_encode(['success' => true]);
