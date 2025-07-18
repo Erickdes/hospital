@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Inicio de sesión</h1>
+        
+        <!-- Mensaje de error (se puede mostrar con JavaScript) -->
+        <div id="error-message" class="alert" style="display:none;">Usuario o contraseña incorrectos.</div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" placeholder="Usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+
+        <!-- Indicador de carga -->
+        <div id="loading" style="display:none;">Iniciando sesión...</div>
+    </div>
+    
+    <script src="../js/login.js"></script>
+</body>
+</html>
