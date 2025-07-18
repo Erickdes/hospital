@@ -22,34 +22,28 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.text())  // Cambiado a .text() para depurar la respuesta cruda
-    .then(responseText => {
-        console.log('Respuesta del servidor:', responseText);  // Imprime la respuesta cruda
+    .then(response => response.json())  // Cambiado a .json() para manejar respuesta JSON
+    .then(data => {
+        console.log('Respuesta del servidor:', data);  // Imprime la respuesta del servidor como objeto
 
-        try {
-            const data = JSON.parse(responseText);  // Intentamos parsear la respuesta
+        if (data.success) {
+            window.location.href = data.redirect;  // Redirige si el login fue exitoso
+        } else {
+            // Muestra el error si no es exitoso
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('error-message').style.display = 'block';  // Muestra el mensaje de error
+            document.getElementById('error-message').textContent = data.error || 'Credenciales inválidas';  // Muestra el mensaje de error
 
-            if (data.success) {
-                window.location.href = data.redirect;  // Redirige si el login fue exitoso
-            } else {
-                // Muestra el error si no es exitoso
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('loginForm').style.display = 'block';
-                document.getElementById('error-message').style.display = 'block';  // Muestra el mensaje de error
-                // Puedes mostrar el mensaje específico si lo recibes desde el servidor
-                if (data.error) {
-                    document.getElementById('error-message').textContent = data.error;
-                }
-            }
-        } catch (e) {
-            console.error('Error al parsear JSON:', e);
-            alert('Error al procesar la respuesta del servidor.');
+            // Limpia los campos de entrada si es necesario
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
         }
     })
     .catch(error => {
         console.error('Error en fetch:', error);
         document.getElementById('loading').style.display = 'none';
         document.getElementById('loginForm').style.display = 'block';
-        alert('Hubo un error en la conexión con el servidor.');
+        alert('Hubo un error en la conessssssssssssssssxión con el servidor.');
     });
 });
