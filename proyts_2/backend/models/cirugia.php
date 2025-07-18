@@ -1,4 +1,6 @@
 <?php
+include '../../backend/middleware/verificar_sesion.php';
+
 class Cirugia {
     private $pdo;
 

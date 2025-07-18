@@ -1,4 +1,5 @@
 <?php
+include '../../backend/middleware/verificar_sesion.php';
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.html");

@@ -1,5 +1,8 @@
 <?php
 include '../../backend/config/db.php';
+include '../../backend/middleware/verificar_sesion.php';
+
+
 
 // Obtener lista de médicos
 $medicos = [];

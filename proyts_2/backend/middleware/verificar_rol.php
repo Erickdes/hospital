@@ -1,4 +1,5 @@
 <?php
+include '../middleware/verificar_sesion.php';
 function verificarRol($roles = []) {
     session_start();
     if (!isset($_SESSION['usuario'])) {

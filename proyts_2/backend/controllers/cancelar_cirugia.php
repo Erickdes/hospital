@@ -1,4 +1,5 @@
 <?php
+include '../middleware/verificar_sesion.php';
 include '../config/db.php'; // Conectar a la base de datos
 
 header('Content-Type: application/json');

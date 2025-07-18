@@ -1,4 +1,5 @@
 <?php
+include '../middleware/verificar_sesion.php';
 include '../../backend/config/db.php'; // Asegúrate de que la ruta sea correcta
 
 // Verificar que la solicitud sea POST

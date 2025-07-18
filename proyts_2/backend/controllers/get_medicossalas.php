@@ -1,4 +1,5 @@
 <?php
+include '../middleware/verificar_sesion.php';
 header('Content-Type: application/json');  // Especificar que la respuesta es JSON
 include '../config/db.php';
 
