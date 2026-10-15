@@ -7,7 +7,7 @@ programadas para ese mismo dia, la sala en que se llavara a cabo cada una
  y frameworks que faciliten el proceso, y debe de conectarse con una base de
  datos en php myadmin
 el objetivo de la api es:
-*1.- adminstrar (agregar, modificar y eliminar) los elementos de una cirugia, los trabajadores contaran con: id, nombres, apellidos, domicilio, curp, rfc, fecha en la que inicio a laborar en la empresa, puesto, especialidad, usuario y contraseña. 
+ *1.- adminstrar (agregar, modificar y eliminar) los elementos de una cirugia, los trabajadores contaran con: id, nombres, apellidos, domicilio, curp, rfc, fecha en la que inicio a laborar en la empresa, puesto, especialidad, usuario y contraseña. 
 *2.-existen tres tipos de usuarios: *ciruganos (quienes solo podran visualizar la tabla de cirugias programadas)  *jefe de piso (tambien es un medico cirugano) quien dentro de la plataforma ademas de poder visualizar la tabla de cirugias programadas tambien podra: { 1.agregar cirugias (cada cirugia conlleva cirugano y sala), 2.modificar los  elementos de la cirugia- la cirugia es en si misma un elemento String que describe el nombre de la cirugia-, cirugano y sala asignados, 3.cancelar cirugias cuando se cancelen cirugias en lugar de aparecer la fecha se mostrara "CANCELADA".}, *jefe de unidad (tambien es un medico cirugano):ademas de poder realizar lo mismo que un jefe de piso tambien puede modificar al jefe de piso. Todos los usuarios deberan de ingresar a la plataforma escribiendo usuario y contraseña. Y dependiendo del rol de cada uno sera la pantalla que se mostrara 
 *3.-la tabla de cirugias programadas tendra los siguientes columnas: Cirugia, Sala, Medico, Jefe de piso.
 *4.-existiran 2 jefes de unidad, 10 ciruganos y 2 jefes de piso. 
