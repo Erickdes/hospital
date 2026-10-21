@@ -7,10 +7,6 @@
   Sistema para gestionar médicos, cirugías y salas quirúrgicas de un hospital.
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Estado-En%20desarrollo-blue?style=for-the-badge" alt="Estado del proyecto">
-  <img src="https://img.shields.io/badge/Tipo-Gesti%C3%B3n%20hospitalaria-0D9488?style=for-the-badge" alt="Gestión hospitalaria">
-</p>
 
 ---
 
@@ -22,7 +18,7 @@ El sistema permitirá consultar, registrar, modificar y cancelar cirugías, seg�
 
 La tabla principal mostrará las cirugías programadas para el día actual, incluyendo la sala asignada, el médico cirujano responsable y el jefe de piso correspondiente.
 
-## 🎯 Objetivos
+## Objetivos
 
 - Administrar la información de los trabajadores.
 - Gestionar las cirugías programadas.
@@ -31,9 +27,9 @@ La tabla principal mostrará las cirugías programadas para el día actual, incl
 - Proteger la comunicación con la base de datos.
 - Facilitar la consulta de información del personal autorizado.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
-### 👨‍⚕️ 1. Gestión de trabajadores
+### 1. Gestión de trabajadores
 
 El sistema contempla los siguientes datos de cada trabajador:
 
@@ -59,13 +55,13 @@ Los usuarios autorizados podrán:
 
 Los médicos y las salas se seleccionarán de listas con opciones existentes. El nombre de la cirugía será el campo de texto libre.
 
-### 🚪 3. Gestión de salas
+### 3. Gestión de salas
 
 El hospital contará con **5 salas quirúrgicas**.
 
 Cada cirugía deberá tener asignados un médico cirujano y una sala existente.
 
-### 📅 4. Tabla de cirugías programadas
+### 4. Tabla de cirugías programadas
 
 La tabla principal tendrá las siguientes columnas:
 
@@ -91,7 +87,7 @@ La tabla principal tendrá las siguientes columnas:
 
 Todos los usuarios deberán iniciar sesión con su nombre de usuario y contraseña. Las pantallas y las funcionalidades disponibles dependerán de su rol.
 
-## 🔐 Autenticación y seguridad
+## Autenticación y seguridad
 
 El sistema deberá incorporar mecanismos para proteger la información hospitalaria:
 
@@ -111,7 +107,7 @@ Si un usuario intenta acceder a una sección protegida sin haber iniciado sesió
 
 El mensaje incluirá un botón **Aceptar** que redirigirá a la pantalla de inicio de sesión.
 
-## 🧑‍💼 Consulta de información del personal
+## Consulta de información del personal
 
 Los jefes de unidad podrán consultar la información del cirujano responsable o del jefe de piso al seleccionar sus nombres en la tabla de cirugías.
 
@@ -128,7 +124,7 @@ La interfaz deberá incluir:
 - Pantallas y opciones según el rol.
 - Mensajes de validación y confirmación.
 
-## 🛠️ Tecnologías
+## Tecnologías
 
 | Tecnología | Propósito |
 |---|---|
@@ -141,7 +137,7 @@ La interfaz deberá incluir:
 
 Se podrán incorporar frameworks y bibliotecas adicionales según las necesidades del proyecto.
 
-## 🗄️ Base de datos
+## Base de datos
 
 La aplicación utilizará una base de datos relacional para almacenar y administrar los datos de los trabajadores, las salas y las cirugías.
 
@@ -151,7 +147,7 @@ La base de datos se administrará mediante **phpMyAdmin**. Las conexiones y cons
 
 Las instrucciones de instalación y ejecución se agregarán una vez que se confirme la estructura del proyecto y la configuración de la base de datos.
 
-## 📌 Estado del proyecto
+## Estado del proyecto
 
 **En desarrollo.**
 
@@ -160,7 +156,6 @@ Las funcionalidades descritas representan los requisitos previstos para el Siste
 ---
 
 <p align="center">
-  🏥 <strong>Sistema de Gestión Hospitalaria</strong>
   <br>
   <sub>Organización, seguridad y administración de cirugías programadas.</sub>
 </p>
