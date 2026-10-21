@@ -1,5 +1,5 @@
 
-# 🏥 Sistema de Gestión Hospitalaria
+# Sistema de Gestión Hospitalaria
 
 <p align="center">
   <strong>Administración y organización de cirugías programadas</strong>
@@ -10,7 +10,7 @@
 
 ---
 
-## 📋 Descripción del proyecto
+## Descripción del proyecto
 
 El **Sistema de Gestión Hospitalaria** tiene como objetivo desarrollar una plataforma para administrar al personal médico, las cirugías programadas y las salas quirúrgicas de un hospital.
 
@@ -44,7 +44,7 @@ El sistema contempla los siguientes datos de cada trabajador:
 - Nombre de usuario.
 - Contraseña.
 
-### 🏥 2. Gestión de cirugías
+### 2. Gestión de cirugías
 
 Los usuarios autorizados podrán:
 
@@ -113,7 +113,7 @@ Los jefes de unidad podrán consultar la información del cirujano responsable o
 
 El acceso a esta información estará protegido mediante permisos y validaciones del servidor.
 
-## 🖥️ Interfaz de usuario
+## Interfaz de usuario
 
 La interfaz deberá incluir:
 
@@ -143,7 +143,7 @@ La aplicación utilizará una base de datos relacional para almacenar y administ
 
 La base de datos se administrará mediante **phpMyAdmin**. Las conexiones y consultas desde PHP deberán realizarse de manera segura, con consultas preparadas y validaciones del lado del servidor.
 
-## 🚀 Instalación y ejecución
+## Instalación y ejecución
 
 Las instrucciones de instalación y ejecución se agregarán una vez que se confirme la estructura del proyecto y la configuración de la base de datos.
 
